@@ -168,30 +168,6 @@ shinyServer(function(input, output, session) {
   })
   
   observeEvent(input$btn_CalcEf, {
-    # casesET <-
-    #   CalculateTperCase(dataframe.CAFTDRT = dataframe.CAFTDRT())
-    # casesWT <-
-    #   CalculateTperCase(dataframe.CAFTDRT = dataframe.CAFTDRT(), type = "Waiting")
-    # case.dataframe <- getDataframeOfCasesETime(casesET)
-    # # #View(dataframe.TracesCases())
-    # caseCT <- vector.FlowTime()#CalculateCycleTime(traces())
-    #
-    #
-    # tracesMins.dataframe <-
-    #   GetMinETforAllTraces(tracescases = dataframe.TracesCases(), case.Dataframe = case.dataframe)
-    # minETvalue <- GetMinETforBP(tracesMins.dataframe)
-    #
-    #
-    #
-    # efficiency.dataframe <-
-    #   BuildingefficiencyCaseFrame(
-    #     caseWTList = casesWT,
-    #     caseCTList = caseCT,
-    #     case.Dataframe = case.dataframe,
-    #     minETvalue = minETvalue,
-    #     tracescases = tracesMins.dataframe
-    #   )
-    #
     
     print("Handle the efficiency button")
     timeUnit = "hours"
@@ -201,11 +177,7 @@ shinyServer(function(input, output, session) {
     # View(efficiency.dataframe)
     efficiency.dataframe$CumulativeTime <-efficiency.dataframe$EffectiveTime
     efficiency.dataframe$FlowTime <- efficiency.dataframe$LeadTime
-    # movingTimeDF <- BuildmovingtimeDF(traces(), unit = "mins")
-    #View(movingTimeDF)
-    # #View(efficiency.dataframe)
     updateTabsetPanel(session, "tabSet", selected = "Effective Time")
-    # drops <- c("EffectiveTime", "WaitingTime", "LeadTime")
     drops <-
       c(
         "EffectiveTime",
@@ -220,19 +192,6 @@ shinyServer(function(input, output, session) {
     efficiency.values.df <-
       efficiency.dataframe[,!(names(efficiency.dataframe) %in% drops)]
     View(efficiency.dataframe)
-    # efficiency.values.df$WaitingTime <- movingTimeDF$Delta
-    # efficiency.dataframe.melt <- melt(efficiency.values.df,
-    #                                   id.vars = 'Case',
-    #                                   variable.name = 'Efficiency')
-    # #View(efficiency.dataframe.melt)
-    # output$EF3TypesPlot <- renderPlot({
-    #   ggplot(efficiency.dataframe.melt, aes(Case, value)) + geom_point(aes(colour =
-    #                                                                          Efficiency))
-    #   # qplot(casesETWT.dataframe$Case,
-    #   #       as.numeric(casesETWT.dataframe$WaitingTime),
-    #   #       xlab = "Cases",
-    #   #       ylab = "Effective time")
-    # })
     
     output$EF3TypesPloty <-
       renderPlotly({
@@ -302,60 +261,6 @@ shinyServer(function(input, output, session) {
         )
         
       })
-    # %>% add_trace(
-    #   x = ~as.character(Case), 
-    #   y = ~as.numeric(EfficiencyLeadTime),
-    #   name = "Efficiency w.r.t flow time",
-    #   type = 'scatter',
-    #   size = ~ EfficiencyLeadTime,
-    #   mode = "markers",
-    #   marker = list(
-    #     size = 5,
-    #     color= "yellow",
-    #     line = list(color = 'black', width = 1)
-    #   )
-    # )
-      # renderPlot({
-      # ggplot(resource.dataframe, aes(x=as.character(Resource),y=nCases)) + geom_point()+theme(axis.text.x = element_text(angle = 90, hjust = 1))
-      # renderPlotly({
-      #   plot_ly(
-      #     efficiency.dataframe,
-      #     x = ~ as.character(Case),
-      #     y = ~ FlowTime,
-      #     name = "Flow time",
-      #     type = "scatter",
-      #     mode = "markers",
-      #     marker = list(
-      #       size = 10,
-      #       color= "purple",
-      #       line = list(color = 'black', width = 2)
-      #     )
-      #   )
-        # %>% layout(
-        #   xaxis = list(title = "Cases", tickangle = 90),
-        #   yaxis = list(title = "Time"+timeUnit)
-        # )
-        # %>% add_trace(x = ~as.character(Case), y = ~CumulativeTime, name = "Cumulative time",type = 'scatter',
-        #             mode = "markers", marker = list(
-        #               size = 10,
-        #               color= "blue",
-        #               line = list(color = 'black', width = 2)
-        #             )
-        #   )
-        # %>% add_trace(x = ~as.character(Case), y = ~WaitingTime, name = "Waiting time",type = 'scatter',
-        #             mode = "markers", marker = list(
-        #               size = 10,
-        #               color= "red",
-        #               line = list(color = 'black', width = 2)
-        #             )
-        # )%>% add_trace(x = ~as.character(Case), y = ~EfficiencyLeadTime, name = "Efficiency",type = 'scatter',
-        #               mode = "markers", marker = list(
-        #                 size = 10,
-        #                 color= "yellow",
-        #                 line = list(color = 'black', width = 2)
-        #               )
-        #   )
-      # })
     
     updateTabsetPanel(session, "timeSet", selected = "Efficiency")
     
@@ -533,25 +438,6 @@ shinyServer(function(input, output, session) {
   ### Workload Flex$$##
   
   observeEvent(input$btn_calcWL, {
-    # flexibility.Dataframe <- BuildFlowDF(traces())
-    # flexibility.Dataframe <- UpdateFlowDF(flexibility.Dataframe)
-    # drops <- c("dateDay","inventory","cumOpened",
-    #            "cumClosed", "OutToIncumRateIns")
-    #
-    # flexibility.Dataframe.Update <-
-    #   flexibility.Dataframe[, (names(flexibility.Dataframe) %in% drops)]
-    
-    
-    # #View(flexibility.Dataframe.Update)
-    # flexibility.Dataframe.Update$dateDay <-
-    #   as.Date(flexibility.Dataframe.Update$dateDay)
-    # flexibility.Dataframe.Update$dateDay <-
-    #   as.Date(cut(
-    #     flexibility.Dataframe.Update$dateDay,
-    #     breaks = "week",
-    #     start.on.monday = FALSE
-    #   ))
-    #View(dataframe.Flexibility())
     flexibility.Dataframe.melt <- melt(dataframe.Flexibility(),
                                        # flexibility.Dataframe[, (names(flexibility.Dataframe) %in% c("dateDay","inventory","cumOpened",
                                        #                                                                       "cumClosed", "OutToIncumRateIns"))],
@@ -560,24 +446,6 @@ shinyServer(function(input, output, session) {
     # #View(flexibility.Dataframe.Update)
     
     output$flexibilityMeasures <- renderPlot({
-      # ggplot(flexibility.Dataframe.melt,
-      #        aes(dateDay, value, group = 1, colour =
-      #              measures)) + #theme(axis.text.x = element_text(angle = 90, hjust = 1))
-      #   # stat_summary(fun.y = max) +
-      #   # stat_summary_bin(data = flexibility.Dataframe.melt[which(flexibility.Dataframe.melt$measures ==
-      #   #                                                                                        "cumOpened"), ], fun.y = max) +
-      #   # stat_summary_bin(data = flexibility.Dataframe.melt[which(flexibility.Dataframe.melt$measures=="cumOpened"), ], fun.y = max)+
-      #   # stat_summary_bin(data = flexibility.Dataframe.melt[which(flexibility.Dataframe.melt$measures=="cuminventoryRateIns"), ], fun.y = max)+
-      #   # stat_summary_bin(data = flexibility.Dataframe.melt[which(flexibility.Dataframe.melt$measures=="OutToIncumRateIns"), ], fun.y = max) +
-      #   theme(axis.text.x = element_text(angle = 90, hjust = 1))+
-      #
-      #   geom_point() +geom_path()+
-      #   scale_y_continuous(limits = c(0,length(traces())+1))
-      # +      scale_x_date(labels = date_format("%d.%m"))
-      
-      
-      # ggplot(flexibility.Dataframe, aes(dateDay, cumOpened,group=1)) + geom_point()+ geom_path()
-      # ggplot(flexibility.Dataframe, aes(dateDay, cumClosed,group=1)) + geom_point()+ geom_path()
       ggplot(
         flexibility.Dataframe.melt,
         aes(
@@ -677,12 +545,6 @@ shinyServer(function(input, output, session) {
     BuildInvEmgDurCmp <- cmpfun(BuildInvEmgDur)
     
     InvEmgDur.dataframe <- BuildInvEmgDurCmp(dataframe.Flexibility())
-    #View(InvEmgDur.dataframe)
-    
-    # InvEmgDur.dataframe<-BuildInvBuildingUpDur(flexDataframe = dataframe.Flexibility(),InvEmgDur.dataframe =InvEmgDur.dataframe )
-    # #View(InvBuildingUpDur)
-    # InvEmgDur.dataframe<-BuildInvRecoveryDur(flexDataframe = dataframe.Flexibility(),InvEmgDur.dataframe =InvEmgDur.dataframe )
-    # #View(InvRecoveryDur)
     BuildInvDursCmp <- cmpfun(BuildInvDurs)
     InvEmgDur.dataframe <-
       BuildInvDursCmp(flexDataframe = dataframe.Flexibility(),
@@ -821,13 +683,6 @@ shinyServer(function(input, output, session) {
     ## render the graph
     # modeInvRate = getmode(dataframe.Flexibility()$cuminventoryRateIns)
     avgInventoryLevel = mean(dataframe.Flexibility()$cuminventoryRateIns)
-    # avgInventoryLevel = mean(dataframe.Flexibility()$inventory)
-    # print(avgInventoryLevel)
-    # dateAsDate<-as.Date(dataframe.Flexibility()$dateDay)
-     # dfFlexibility<-dataframe.Flexibility()
-     # # dfFlexibility$DateAsDate<-as.Date(dfFlexibility$dateDay,"%m/%d/%Y")
-    # dataframe.Flexibility()<-dfFlexibility
-    # flowsz=dataframe.Flexibility()
     flowz=dataframe.Flexibility()[with(dataframe.Flexibility(), order(dataframe.Flexibility()$DateAsObject)), ]
     View(flowz)
     output$flexMesIntr <-
@@ -889,12 +744,6 @@ shinyServer(function(input, output, session) {
     # #View(BehavioralFlexibilityDF)
     BehavioralFlexibilityDF <- dataframe.BehavioralFlexibility()
     View(BehavioralFlexibilityDF)
-    # giniCof = ineq(BehavioralFlexibilityDF$nCases)
-    # 
-    #Gini(BehavioralFlexibilityDF$Trace,BehavioralFlexibilityDF$nCases)
-    # sdev=sd(BehavioralFlexibilityDF$nCases)
-    # meanV = mean(BehavioralFlexibilityDF$nCases)
-    # sdev=sdev/meanV*100
     sdev=sd(BehavioralFlexibilityDF$percentage)
     behavioralFlexValue <<- sdev
     output$BflexSummary <- renderPrint({
@@ -903,7 +752,6 @@ shinyServer(function(input, output, session) {
                    nrow(BehavioralFlexibilityDF),
                    sep = ":")
       str3 = paste("The deviation in the execution behavior (st.deviation): ",format(sdev))
-      # str5 = paste("The Gini cofficient is : ", giniCof)
       
       str4 = paste(str1, str2, str3, sep = "\n")
       cat(paste0(str4, "\n"))
@@ -927,9 +775,6 @@ shinyServer(function(input, output, session) {
             xaxis = list(title = "Traces IDs", tickangle = 45),
             yaxis = list(title = "Percentage of the trace in log",tickformat = "%")
           )#+ylab('number of cases') + xlab('Traces')
-        # ggplot(BehavioralFlexibilityDF,
-        #        aes(row.names(BehavioralFlexibilityDF), nCases, group = 1)) + geom_point() +
-        #   ylab('Cases') + xlab('Traces') + labs(title = " Behavioral distribution ")
       })
     
     output$BehavioralFlex <-
@@ -941,39 +786,8 @@ shinyServer(function(input, output, session) {
   
   
   observeEvent(input$btn_HB, {
-    #View(dataframe.BehavioralFlexibility())
-    #  nTraces<-nrow(dataframe.BehavioralFlexibility())
-    #  successPath<-vector()
-    #  for(i in 1:nTraces){
-    #
-    #    successPath[i]<-'<input type="radio" name="Success" value="False"/>'
-    #  }
-    #  #View(successPath)
-    #
-    # BehavioralFlexibilityDF<-
-    #   dataframe.BehavioralFlexibility()
-    # BehavioralFlexibilityDF$success<-successPath
-    #  #View(BehavioralFlexibilityDF)
-    # # output$BfSummary <- renderPrint({
-    # #   str1=paste("Total number of cases", totalNCases, sep = ":")
-    # #   str2=paste("Total number of traces ", nrow(BehavioralFlexibilityDF), sep = ":")
-    # #   str3=paste(str1,str2,sep = "\n")
-    # #   cat(paste0( str3, "\n"))
-    # #
-    # # })
     output$tracess <-
       DT::renderDataTable(dataframe.BehavioralFlexibility(), server = FALSE)
-    #    DT::renderDataTable(
-    #      BehavioralFlexibilityDF, escape = FALSE, selection = 'none', server = FALSE,
-    #   options = list(dom = 't', paging = FALSE, ordering = FALSE),
-    #   callback = JS("table.rows().every(function(i, tab, row) {
-    #                 var $this = $(this.node());
-    #                 $this.attr('id', this.data()[0]);
-    #                 $this.addClass('shiny-input-radiogroup');
-    #                  });
-    #                 Shiny.unbindAll(table.table().node());
-    #                 Shiny.bindAll(table.table().node());")
-    # )
     
   })
   
@@ -1153,13 +967,6 @@ shinyServer(function(input, output, session) {
     estimatedCost = as.numeric(input$EstimatedCost)
     calculatedCost = totalCost* as.numeric(input$weightHP)#560629698#totalCost # based on the direct cost in the log
     newC = calculatedCost / estimatedCost
-    
-    # FTs=sum(getDataframeOfCasesCTime(vector.FlowTime())$CycleTime)
-    # EFR=1942*input$WeightEFR
-    # (FTs/length(traces()))*input$WeightEFR
-    
-    # FTE=1*input$WeightFTE
-    # FTE=(mean(dataframe.Efficiency()$EfficiencyLeadTime) )*input$WeightFTE
     HPratio = happyPathPercentage* as.numeric(input$weightHP)#0.016 * as.numeric(input$weightHP)#getDatetime(tail(t, 1)$timestamp
     BEratio = errorPathPercentage * as.numeric(input$weightBE) #0.0275 * as.numeric(input$weightBE)
     
@@ -1178,33 +985,6 @@ shinyServer(function(input, output, session) {
         newX = c(0, newC, 0, newF),
         newY = c(newT, 0, newQ, 0)
       )
-    # output$DevilQAloneLabel <- renderText({
-    #   "Current measures"
-    # })
-    # output$DevilQAlone <- renderPlot(
-    #   ggplot(dfV) + geom_polygon(aes(
-    #     x = dfV[, 3], y = dfV[, 4]
-    #   )) + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
-    #   + geom_label(x = 0, y = 1, label = "Time") + geom_label(x = 0, y =
-    #                                                             -1, label = "Quality") + geom_label(x = 1, y = 0, label = "Cost") + geom_label(x =
-    #                                                                                                                                              -1, y = 0, label = "Flexibility") + scale_x_continuous(limits = c(-1, 1), breaks = NULL) +
-    #     scale_y_continuous(limits = c(-1, 1), breaks = NULL)
-    #   + theme(
-    #     axis.line = element_blank(),
-    #     axis.text.x = element_blank(),
-    #     axis.title.x = element_blank(),
-    #     axis.title.y = element_blank(),
-    #     legend.position = "none",
-    #     panel.background = element_blank(),
-    #     panel.border = element_blank()
-    #     ,
-    #     panel.grid.major = element_blank(),
-    #     panel.grid.minor = element_blank(),
-    #     plot.background = element_blank()
-    #   )
-    #   
-    #   
-    # )
     output$DevilQLabel <- renderText({
       "Current and old measures"
     })
@@ -1257,18 +1037,6 @@ BuildCAFTRDeltaMatrix <- function (log, unit = "hours") {
   # print("start building CAFTDRT Matrix")
 
   getDatetime <- function(strDate) {
-    # datetime<-tryCatch({
-    #   print("try")
-    #   return(strptime(strDate, "%Y/%m/%d %H:%M:%S"))},
-    #   warning = function(war){
-    # print("war")
-    # print(strDate)
-    #     return(strptime(strDate, "%m/%d/%Y %H:%M:%S"))},
-    #   error = function(err){
-    #     print("err")
-    #     print(err)
-    #     return(strptime(strDate, "%m/%d/%Y %H:%M:%S"))})
-    #
     datetime = strptime(strDate, "%m/%d/%Y %H:%M")
     if (is.na(datetime)) {
       datetime = strptime(strDate, "%Y/%m/%d %H:%M")
@@ -1338,13 +1106,8 @@ BuildCAFTRDeltaMatrix <- function (log, unit = "hours") {
             eTime <- events[index + 1, ]$timestamp
             if (is.na(eTime))
               next()
-            # eDateTime <- strptime(eTime, "%Y/%m/%d %H:%M:%OS")
-            # sDateTime <- strptime(sTime, "%Y/%m/%d %H:%M:%OS")
-            #
             eDateTime <-  getDateCmp(eTime)
-            # as.POSIXct(eTime,format="%m/%d/%Y %H:%M")
             sDateTime <- getDateCmp(sTime)
-            # as.POSIXct(sTime,format="%m/%d/%Y %H:%M")
             
             if (is.na(sDateTime)  || is.na(eDateTime))
             {
@@ -1436,11 +1199,8 @@ BuildCAFTRDeltaMatrix <- function (log, unit = "hours") {
         next
       }
       eDateTime <- getDateCmp(eTime)
-      # strptime(eTime, "%Y/%m/%d %H:%M:%OS")
       sDateTime <- getDateCmp(sTime)
-      # strptime(sTime, "%Y/%m/%d %H:%M:%OS")
       if (is.na(sDateTime)  || is.na(eDateTime)) {
-        #View(t)
         print(index)
         print(paste("start time", sTime, sep = ":"))
         print(paste("End time", eTime, sep = ":"))
@@ -1511,18 +1271,6 @@ BuildCAFTRDeltaMatrix <- function (log, unit = "hours") {
   
   print("start building CAFTDRT Matrix")
   traceNumber=1
-  # for (t in log) {
-  #   # when there is no transiton
-  #   print(traceNumber)
-  #   traceNumber= traceNumber+1
-  #   if (is.null(t$transition)) {
-  #     CAFTRDRows <- BuildCAFTRDeltaRowwoLC(t = t, unit = unit)
-  #   }
-  #   else{
-  #     CAFTRDRows <- BuildCAFTRDeltaRow(t = t, unit = unit)
-  #   }
-  #   CAFTRDT <- rbind(CAFTRDT, CAFTRDRows)
-  # }
   
   CAFTRDT <- foreach(t=iter(log, by='row'), .combine=rbind) %dopar% {
     print(traceNumber)
@@ -1548,14 +1296,8 @@ CalculateCaseMovingTime <- function(t, unit = "hours") {
     }
     sTime <- t[min(events) - 1, ]$timestamp
     eTime <- t[min(events), ]$timestamp
-    # sTime <- t[nrow(events)-1,]$timestamp
-    # eTime <- t[nrow(events),]$timestamp
     eDateTime <- getDatetime(eTime)
-    # as.POSIXct(eTime,format="%m/%d/%Y %H:%M")
     sDateTime <- getDatetime(sTime)
-    # as.POSIXct(sTime,format="%m/%d/%Y %H:%M")
-    # #View(eDateTime)
-    # #View(sDateTime)
     diff = difftime(eDateTime, sDateTime, units = unit)
     numDiff <- as.numeric(diff, units = unit)
     mt = mt + numDiff
@@ -1899,8 +1641,6 @@ CalculateCycleTimePerTrace <- function (t, unit = "hours") {
   eDateTime <- getDatetime(eTime)
   # strptime(eTime, "%m/%d/%Y %H:%M")
   sDateTime <- getDatetime(sTime)
-  # strptime(sTime, "%m/%d/%Y %H:%M")  # eDateTime <- strptime(eTime, "%Y/%m/%d %H:%M:%OS")
-  # sDateTime <- strptime(sTime, "%Y/%m/%d %H:%M:%OS")
   diff = difftime(eDateTime, sDateTime, units = unit) #/ 8 # working hours per day
   # print(diff)
   numDiff <- as.numeric(diff, units = unit)
@@ -1916,12 +1656,6 @@ CalculateCycleTime <- function (log, unit = "hours") {
   cList <-
     lapply(X = log, function(x)
       CalculateCycleTimePerTrace(t = x , unit = "hours"))
-  # outputCT <- matrix(unlist(cList))
-  # avg <- mean(outputCT)
-  #
-  # print(paste("The average cyclic time of the business process is ", avg, sep =
-  #               " "))
-  #
   return(cList)
 }
 
@@ -1970,25 +1704,12 @@ BuildTraceCasesMatrix <- function(Traces) {
   for (t in Traces) {
     caseId =as.character( t[1, 1])
     strTrace = character()
-    # noEvents <- as.numeric(nrow(t))
-    # noE <- noEvents
-    # for (index in 1:noE) {
-    #   activityN <- as.character(t[index, ]$activity)
-    #   strTrace <- paste(strTrace, ',', activityN)
-    #
-    # }
     strTrace <- paste(t$activity,collapse=",")
     sortedVersion=paste(sort(t$activity),collapse=",")
     if (sortedVersion %in% df$sortedTrace) {
-      # print(caseId)
       cases <- df[which(df$sortedTrace == sortedVersion), 2]
-      # print(paste("casesB : ",cases))
       cases <- paste(cases, ',', caseId)
-      # print(paste("cases cur : ",cases))
       df[which(df$sortedTrace == sortedVersion), 2] <- cases
-      # print(paste("casesB : ",df[which(df$sortedTrace == sortedVersion), 2]))
-
-      # df[which(df$tracesEL == strTrace), 2] <- paste(df[which(df$tracesEL == strTrace), 2], ',', caseId)
     }
     else{
       dft <-
@@ -2002,33 +1723,6 @@ BuildTraceCasesMatrix <- function(Traces) {
     }
 
   }
-  # 
-  # df <- foreach(t=iter(Traces, by='row'), .combine=rbind) %do% {
-  #   caseId = as.character(t[1, 1])
-  #   strTrace  <- paste(t$activity,collapse=",")
-  #   sortedVersion=paste(sort(t$activity),collapse=",")
-  #   # print(sortedVersion)
-  #   if (sortedVersion %in% df$sortedTrace) {
-  #     # print("add new case")
-  # 
-  #     # print(paste("caseId : ",caseId))
-  #     casesB=df[which(df$sortedTrace == sortedVersion),]$cases
-  #     # print(paste("casesB : ",casesB))
-  #     casesB = paste(casesB,',', caseId)
-  #     df[which(df$sortedTrace == sortedVersion),]$cases <- casesB
-  #     # print(paste("casesA : ",df[which(df$sortedTrace == sortedVersion),]$cases))
-  #   }
-  #   else{
-  #     df<-
-  #       data.frame(
-  #         tracesEL = strTrace,
-  #         cases = as.character(caseId),
-  #         sortedTrace = sortedVersion,
-  #         stringsAsFactors = FALSE
-  #       )
-  #     
-  #   }
-  # }
   View(df)
   return(df)
 }
@@ -2095,27 +1789,19 @@ CalculateResourceCost <-
       }
       else{
         salary <-as.numeric(salV)
-        # as.numeric(salary.dataframe[salary.dataframe$resource == resource.dataframe[i, ]$Resource, 2])
       }
-      # print(salary)
-      # salary <- salary / 40 ## to get the cost of Working hour
       costWH[i] <- as.numeric(resource.dataframe[i, ]$WH) * salary
     }
-    #View(resource.dataframe)
     resource.dataframe$Cost <- costWH
     return(resource.dataframe)
   }
 groupUpHRCaseCost<-function(resource.dataframe)
 { 
-  # directCostList <- lapply(resource.dataframe, function(events)
-  # sum(as.numeric(events$cost)))
   drops <- c("Resource")
   
   resource.dataframe <-
     resource.dataframe[,!(names(resource.dataframe) %in% drops)]
   dt <- data.table(resource.dataframe)
-  # directCostList <-
-    # dt[,WH= sum(WH), Cost = sum(Cost), by = Case]
   directCostList <-
     resource.dataframe %>% group_by(Case) %>% summarise(Cost = sum(Cost), WorkingHours = sum(WH))
   return(directCostList)
@@ -2223,12 +1909,6 @@ BuildFlowDFwithRDate <- function(log) {
     # "%m/%d/%Y %H:%M:%S"))
     
     OutDay <- getDatetime(tail(t, 1)$timestamp)
-    # as.POSIXct(tail(t, 1)$timestamp,format="%m/%d/%Y %H:%M:%S")
-    # as.Date(strptime(tail(t, 1)$timestamp, "%m/%d/%Y %H:%M:%S"))
-    #   as.character(as.Date(strptime(
-    #     tail(t, 1)$timestamp, "%m/%d/%Y %H:%M:%S"
-    #   ), format = "%m/%d/%Y %H:%M:%S"))
-    # # print(typeof(Day))
     ## Handle instance Inflow/ just opened cases
     if (is.null(WorkLoad)) {
       WorkLoad  <-
@@ -2448,10 +2128,6 @@ BuildFlowDF <- function(log) {
 ## its closed
 UpdateFlowDF <- function(flow.dataframe) {
   # order by date
-  # print("start to update the flow df")
-  #View(flow.dataframe)
-  # flow.dataframe <-
-    # flow.dataframe[with(flow.dataframe, order(as.Date(dateDay))), ]
   View(flow.dataframe)
   flow.dataframe <- flow.dataframe[order(flow.dataframe$DateAsObject),] 
   
@@ -2552,19 +2228,12 @@ SetInventoryStatus <- function(flow.dataframe, acceptedInvL) {
 BuildInvEmgDur <- function(flexDataframe) {
   
   InvEmgDur.dataframe <- NULL
-  # data.frame(
-  #   SDate = character() ,
-  #   EDate = character() ,
-  #   Duration = numeric(),
-  #   stringsAsFactors = FALSE
-  # )
   nrows = nrow(flexDataframe)+1
   temp = NULL
   SDate = NULL
   EDate = NULL
   sIndex = NULL
   index = 1
-  # for (index in 1:nrows) {
   while(index < nrows) { 
     invStatus = flexDataframe[index,]$InventoryStatus
     print("INN THE OUTER index")
@@ -2633,14 +2302,6 @@ BuildInvEmgDur <- function(flexDataframe) {
 BuildInvBuildingUpDur <-
   function(flexDataframe, InvEmgDur.dataframe) {
     InvBuildingUpDur.dataframe <- NULL
-    # data.frame(
-    #   SDate = character() ,
-    #   EDate = character() ,
-    #   Duration = numeric(),
-    #   Inventory=numeric(),
-    #   ThroughputRate=numeric(),
-    #   stringsAsFactors = FALSE
-    # )
     nrows = nrow(InvEmgDur.dataframe)
     BuildingUpDuration <- vector()
     for (index in 1:nrows) {
@@ -2667,25 +2328,6 @@ BuildInvBuildingUpDur <-
       PickDate = firstHighestInv$dateDay
       Duration = difftime(PickDate, SDate, unit = "days")
       BuildingUpDuration[index] <- Duration
-      
-      # # get the average throughput\closed cases within the recovery time
-      # sIndex=indexSt-1
-      # if(indexSt<0){indexSt=0}
-      # buildingUpRecords<-flexDataframe[c(indexSt:min(which(flexDataframe$cuminventoryRateIns==highestInv))),]
-      # ThroughputRate= mean(buildingUpRecords$cumClosed,na.rm = TRUE)
-      # Inventory=mean(buildingUpRecords$cuminventoryRateIns,na.rm = TRUE)
-      #
-      # temp <- data.frame(
-      #       SDate = SDate ,
-      #       PickDate = PickDate ,
-      #       Duration = Duration,
-      #       Inventory = Inventory,
-      #       ThroughputRate=ThroughputRate,
-      #       stringsAsFactors = FALSE
-      #     )
-      # if(is.null(InvBuildingUpDur.dataframe)){InvBuildingUpDur.dataframe<-temp}
-      # else{InvBuildingUpDur.dataframe <- rbind(InvBuildingUpDur.dataframe, temp)}
-      #
     }
     InvEmgDur.dataframe$BuildingUpDuration <- BuildingUpDuration
     # return(InvBuildingUpDur.dataframe)
@@ -2695,14 +2337,6 @@ BuildInvDurs <- function(flexDataframe, InvEmgDur.dataframe) {
   View(flexDataframe)
   View(InvEmgDur.dataframe)
   InvBuildingUpDur.dataframe <- NULL
-  # data.frame(
-  #   SDate = character() ,
-  #   EDate = character() ,
-  #   Duration = numeric(),
-  #   Inventory=numeric(),
-  #   ThroughputRate=numeric(),
-  #   stringsAsFactors = FALSE
-  # )
   nrows = nrow(InvEmgDur.dataframe)
   BuildingUpDuration <- vector()
   InvRecoveryDur <- vector()
@@ -2749,42 +2383,15 @@ BuildInvDurs <- function(flexDataframe, InvEmgDur.dataframe) {
     Duration = difftime(getDatetime(RecoveryDate), getDatetime(PickDate), unit = "days")
     InvRecoveryDur[index] <- Duration
     
-    # # get the average throughput\closed cases within the recovery time
-    # sIndex=indexSt-1
-    # if(indexSt<0){indexSt=0}
-    # buildingUpRecords<-flexDataframe[c(indexSt:min(which(flexDataframe$cuminventoryRateIns==highestInv))),]
-    # ThroughputRate= mean(buildingUpRecords$cumClosed,na.rm = TRUE)
-    # Inventory=mean(buildingUpRecords$cuminventoryRateIns,na.rm = TRUE)
-    #
-    # temp <- data.frame(
-    #       SDate = SDate ,
-    #       PickDate = PickDate ,
-    #       Duration = Duration,
-    #       Inventory = Inventory,
-    #       ThroughputRate=ThroughputRate,
-    #       stringsAsFactors = FALSE
-    #     )
-    # if(is.null(InvBuildingUpDur.dataframe)){InvBuildingUpDur.dataframe<-temp}
-    # else{InvBuildingUpDur.dataframe <- rbind(InvBuildingUpDur.dataframe, temp)}
-    #
   }
   View(InvRecoveryDur)
   View(BuildingUpDuration)
   InvEmgDur.dataframe$BuildingUpDuration <- BuildingUpDuration
   InvEmgDur.dataframe$InvRecoveryDur <- InvRecoveryDur
-  # return(InvBuildingUpDur.dataframe)
   return(InvEmgDur.dataframe)
 }
 BuildInvRecoveryDur <- function(flexDataframe, InvEmgDur.dataframe) {
   InvRecoveryDur.dataframe <- NULL
-  # data.frame(
-  #   SDate = character() ,
-  #   EDate = character() ,
-  #   Duration = numeric(),
-  #   Inventory = numeric(),
-  #   ThroughputRate= numeric(),
-  #   stringsAsFactors = FALSE
-  # )
   nrows = nrow(InvEmgDur.dataframe)
   InvRecoveryDur <- vector()
   
@@ -2813,23 +2420,6 @@ BuildInvRecoveryDur <- function(flexDataframe, InvEmgDur.dataframe) {
     Duration = difftime(RecoveryDate, PickDate, unit = "days")
     InvRecoveryDur[index] <- Duration
     
-    # # get the average throughput\closed cases within the recovery time
-    # recoveryRecords<-flexDataframe[c(max(which(flexDataframe$cuminventoryRateIns==highestInv)):indexEt+1),]
-    # ThroughputRate= mean(recoveryRecords$cumClosed,na.rm = TRUE)
-    # Inventory=mean(recoveryRecords$cuminventoryRateIns,na.rm = TRUE)
-    #
-    # temp <- data.frame(
-    #   PickDate = PickDate ,
-    #   RecoveryDate = RecoveryDate ,
-    #   Duration = Duration,
-    #   Inventory = Inventory,
-    #   ThroughputRate=ThroughputRate,
-    #   stringsAsFactors = FALSE
-    # )
-    # if(is.null(InvRecoveryDur.dataframe)){InvRecoveryDur.dataframe<-temp}
-    # else{InvRecoveryDur.dataframe <- rbind(InvRecoveryDur.dataframe, temp)}
-    #
-    
   }
   # return(InvRecoveryDur.dataframe)
   InvEmgDur.dataframe$InvRecoveryDur <- InvRecoveryDur
@@ -2857,14 +2447,6 @@ calculateWorkloadFlex <- function(InvEmgDur.dataframe, flexDataframe) {
     SD = ED - (BD + RD)
     BR = BD / (BD + RD)
     SR = 1 - (as.double(SD) / as.double(ED))
-    # print(paste("index",":",index))
-    # print(paste("ED",":",ED))
-    # print(paste("BD",":",BD))
-    # print(paste("RD",":",RD))
-    # print(paste("SD",":",SD))
-    # print(paste("BR",":",BR))
-    # print(paste("SR",":",SR))
-    
     temp = ED * BR * SR
     # print(paste("temp",":",temp))
     wf = wf + temp
@@ -2872,14 +2454,6 @@ calculateWorkloadFlex <- function(InvEmgDur.dataframe, flexDataframe) {
     
   }
   # get the date of the last event within the log
-  # lastcase = traces[[length(traces)]]
-  # lastDate = getDatetime(as.character(tail(lastcase, 1)$timestamp))
-  # # as.POSIXct(traces[[length(traces)]][1,]$timestamp,format="%m/%d/%Y %H:%M:%S")
-  # # as.Date(strptime(traces[[length(traces)]][1,]$timestamp, "%m/%d/%Y %H:%M:%S"))
-  # firstDate = getDatetime(traces[[1]][1, ]$timestamp)
-  # # as.POSIXct(traces[[1]][1,]$timestamp,format="%m/%d/%Y %H:%M:%S")
-  # as.Date(strptime(traces[[1]][1,]$timestamp, "%m/%d/%Y %H:%M:%S"))
-  # totalTime = difftime(lastDate, firstDate, unit = "days")
   firstDate=getDatetime(flexDataframe[1,]$dateDay)
   lastDate=getDatetime(flexDataframe[nrow(flexDataframe),]$dateDay)
   totalTime = difftime(lastDate,firstDate , unit = "days")
@@ -2888,18 +2462,6 @@ calculateWorkloadFlex <- function(InvEmgDur.dataframe, flexDataframe) {
 }
 
 getDatetime <- function(strDate) {
-  # datetime<-tryCatch({
-  #   print("try")
-  #   return(strptime(strDate, "%Y/%m/%d %H:%M:%S"))},
-  #   warning = function(war){
-  # print("war")
-  # print(strDate)
-  #     return(strptime(strDate, "%m/%d/%Y %H:%M:%S"))},
-  #   error = function(err){
-  #     print("err")
-  #     print(err)
-  #     return(strptime(strDate, "%m/%d/%Y %H:%M:%S"))})
-  #
   datetime = strptime(strDate, "%m/%d/%Y %H:%M")
   if (is.na(datetime)) {
     datetime = strptime(strDate, "%Y/%m/%d %H:%M")
